@@ -1,0 +1,75 @@
+<project name="AblApplication" basedir=".">
+
+  <!-- 
+      Available variables:
+
+      catalina.home:  PASOE install location
+      catalina.base:  PASOE instance location
+      instance.name:  PASOE instance name
+      ablapp.name:    ABL application name
+  -->
+	
+	<!--  what kind of deployment is this? -->
+	<condition property="deployment.type" value="dev">
+		<contains string="${instance.name}" substring="-dev" casesensitive="false" />
+	</condition>
+	<condition property="deployment.type" value="test">
+		<contains string="${instance.name}" substring="-test" casesensitive="false" />
+	</condition>
+	<condition property="deployment.type" value="prod">
+		<contains string="${instance.name}" substring="-prod" casesensitive="false" />
+	</condition>
+	<property name="deployment.type" value="prod" />
+
+  <description>
+    Template build file for ABL application deployment tailoring.
+    Added to instance ablapps appname tlr directory.
+  </description>
+
+  <target name="ablapp_deploy">
+    <!-- Called when a deployment artifact is created -->
+  </target>
+
+  <target name="ablapp_deployed">
+    <!-- Called when a deployment artifact is created -->
+	
+	<!-- Make sure the PF is right -->
+	<copy file="${catalina.base}/ablapps/${ablapp.name}/tlr/time4tea.pf.${deployment.type}"
+		  tofile="${catalina.base}/ablapps/${ablapp.name}/conf/time4tea.pf"
+		  overwrite="true" />
+	
+	<!-- Make sure the authentication is right -->
+	<copy file="${catalina.base}/ablapps/${ablapp.name}/tlr/oeablSecurity.properties.${deployment.type}"
+		  tofile="${catalina.base}/ablapps/${ablapp.name}/conf/oeablSecurity.properties"
+		  overwrite="true" />
+	
+	<!-- remove from webapps so that we use the ABLAPP version -->
+	<delete failonerror="false">
+		<fileset dir="${catalina.base}/webapps" includes="**/WEB-INF/oeablSecurity.properties"/>
+	</delete>
+  </target>
+
+  <target name="ablapp_undeploy">
+    <!-- Called when a deployment artifact is removed from its container -->
+  </target>
+  
+  <target name="ablapp_undeployed">
+    <!-- Called when a deployment artifact is removed from its container -->
+  </target>
+
+  <target name="ablapp_export">
+    <!-- Called when a deployment artifact is exported from its container -->
+  </target>
+
+  <target name="ablapp_exported">
+    <!-- Called when a deployment artifact is exported from its container -->
+	
+	<!-- Add any custom tailoring files to the TLR folder -->
+	<!-- This makes an assumption about the OEAR name, since it's not passed in -->
+	<zip destfile="${catalina.base}/${ablapp.name}.oear"
+		 basedir="${catalina.base}/ablapps/${ablapp.name}"
+		 update="true" 
+		 includes="tlr/**"    />
+  </target>
+
+</project>

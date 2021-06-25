@@ -1,0 +1,53 @@
+# "url-pattern","<method>","<spring-access-expression>"
+############## Intercept-url definitions for the APSV transport URIs ###############
+"/apsv/**","HEAD","hasAnyRole('ROLE_PSCUSER','ROLE_PSCDEBUG','ROLE_PSCADMIN')"
+"/apsv/**","GET","hasAnyRole('ROLE_PSCUSER','ROLE_PSCDEBUG','ROLE_PSCADMIN')"
+"/apsv/**","POST","hasAnyRole('ROLE_PSCUSER','ROLE_PSCDEBUG','ROLE_PSCADMIN')"
+
+############## Intercept-url definitions for the SOAP transport URIs ###############
+"/soap/wsdl/**","GET","hasAnyRole('ROLE_PSCUSER','ROLE_PSCDEBUG','ROLE_PSCADMIN')"
+"/soap/**","POST","hasAnyRole('ROLE_PSCUSER','ROLE_PSCDEBUG','ROLE_PSCADMIN')"
+
+############## Intercept-url definitions for the REST transport URIs ###############
+"/rest/**","*","hasAnyRole('ROLE_PSCUSER','ROLE_PSCDEBUG','ROLE_PSCADMIN')"
+
+############## Intercept-url definitions for the WEB transport  URIs ###############
+"/web/**","*","hasAnyRole('ROLE_PSCUSER','ROLE_PSCDEBUG','ROLE_PSCADMIN')"
+
+############## Intercept-url definitions for the default URI space #################
+"/static/home.html","GET","hasAnyRole('ROLE_PSCUSER','ROLE_PSCDEBUG','ROLE_PSCADMIN')"
+
+"/static/ServerStatus.html","GET","hasAnyRole('ROLE_PSCUser','ROLE_PSCAdmin','ROLE_PSCDebug')"
+
+"/server/**","GET","hasAnyRole('ROLE_PSCAdmin','ROLE_PSCDebug')"
+
+"/*","GET","permitAll()"
+
+"/static/*","GET","permitAll()"
+
+"/static/error/*","GET","permitAll()"
+
+"/static/images/*","GET","permitAll()"
+
+"/static/auth/*","GET","permitAll()"
+
+"/static/**","GET","hasAnyRole('ROLE_PSCUSER','ROLE_PSCDEBUG','ROLE_PSCADMIN')"
+
+"/**/*.htm*","GET","hasAnyRole('ROLE_PSCUSER','ROLE_PSCDEBUG','ROLE_PSCADMIN')"
+
+"/**/*.gif","GET","hasAnyRole('ROLE_PSCUSER','ROLE_PSCDEBUG','ROLE_PSCADMIN')"
+
+"/**/*.jpg","GET","hasAnyRole('ROLE_PSCUSER','ROLE_PSCDEBUG','ROLE_PSCADMIN')"
+
+"/**/*.css","GET","hasAnyRole('ROLE_PSCUSER','ROLE_PSCDEBUG','ROLE_PSCADMIN')"
+
+"/**/*.js","GET","hasAnyRole('ROLE_PSCUSER','ROLE_PSCDEBUG','ROLE_PSCADMIN')"
+
+"/**/*.json","GET","hasAnyRole('ROLE_PSCUSER','ROLE_PSCDEBUG','ROLE_PSCADMIN')"
+
+"/**/*.asp","GET","hasAnyRole('ROLE_PSCUSER','ROLE_PSCDEBUG','ROLE_PSCADMIN')"
+
+"/**/*.inc","GET","hasAnyRole('ROLE_PSCUSER','ROLE_PSCDEBUG','ROLE_PSCADMIN')"
+
+# Best practice - deny anything not explicitly granted
+"/**","*","denyAll()"
